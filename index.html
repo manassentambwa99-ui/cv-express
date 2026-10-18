@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CV Express</title>
+<meta name="description" content="CV professionnel en 24 heures. Commande sur WhatsApp, paiement par Orange Money, livraison en PDF.">
+<meta property="og:title" content="CV Express">
+<meta property="og:description" content="CV professionnel en 24 heures, dès 3 $. Commande sur WhatsApp.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: une colonne pensée pour téléphone ; bandeau bleu encre en haut, jaune drapeau réservé aux boutons d'action */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --fg:#14213d; --muted:#586379; --line:#dde1e9;
+  --ink:#14213d; --on-ink:#f6f7f9;
+  --accent:#f5c518; --on-accent:#14213d; --ok:#1f7a4d; --warn:#9a3b12; --warn-bg:#fdeee6;
+  --display:'Bricolage Grotesque','Arial Narrow',system-ui,sans-serif;
+  --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1424; --surface:#172036; --fg:#eef1f7; --muted:#a2adc4; --line:#2a3552;
+  --ink:#0a0f1d; --on-ink:#eef1f7; --ok:#5fd39b; --warn:#f2a679; --warn-bg:#2b1a14; color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 48px;display:flex;flex-direction:column;gap:30px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:2.3rem;font-weight:800;letter-spacing:-.02em}
+h2{font-size:1.45rem;font-weight:800;letter-spacing:-.01em}
+p{margin:0}
+section{display:grid;gap:12px}
+.brand{font-family:var(--display);font-weight:800;font-size:1rem;letter-spacing:.06em;text-transform:uppercase}
+.hero{background:var(--ink);color:var(--on-ink);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;gap:16px}
+.hero .brand{color:var(--accent)}
+.hero p{color:color-mix(in srgb,var(--on-ink) 82%,transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:12px;background:var(--accent);color:var(--on-accent);font:600 1rem var(--body);text-decoration:none;border:0;cursor:pointer;text-align:center}
+.ghost{min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid var(--line);background:transparent;color:var(--fg);font:500 .95rem var(--body);cursor:pointer}
+.btn:focus-visible,.ghost:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.prices{display:grid;gap:10px}
+.price{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:baseline}
+.price h3{font:700 1.05rem var(--body)}
+.price .amt{font:800 1.5rem var(--display);font-variant-numeric:tabular-nums}
+.price p{grid-column:1/-1;color:var(--muted);font-size:.93rem}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.steps li::before{content:counter(s);width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font:700 .95rem var(--display)}
+.list{margin:0;padding-left:20px;display:grid;gap:4px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px}
+label{display:grid;gap:4px;font-weight:600;font-size:.92rem}
+input,select{min-height:48px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);padding:0 12px;font:400 1rem var(--body);width:100%;min-width:0}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1 1 150px}
+.note{color:var(--muted);font-size:.9rem}
+.ok{color:var(--ok);font-weight:600;min-height:1.4em}
+.pay{display:grid;gap:4px;background:var(--bg);border:1.5px dashed var(--line);border-radius:12px;padding:14px}
+.pay .tot{font:800 2rem var(--display);font-variant-numeric:tabular-nums}
+.pay .num{font:600 1.2rem var(--body);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.warn{background:var(--warn-bg);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:.93rem}
+.cv{background:#fff;color:#14213d;border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:8px;font-size:.82rem;line-height:1.4}
+.cv b{font:800 1.05rem var(--display)}
+.cv .tag{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#586379}
+.cv hr{border:0;border-top:1px solid #dde1e9;margin:2px 0;width:100%}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px}
+summary{min-height:48px;display:flex;align-items:center;font-weight:600;cursor:pointer}
+details p{padding-bottom:14px;color:var(--muted)}
+footer{color:var(--muted);font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <span class="brand">CV Express · RDC</span>
+    <h1>Ton CV professionnel en 24 heures.</h1>
+    <p>Tu m'envoies tes informations sur WhatsApp, tu paies par Orange Money, tu reçois ton CV prêt à envoyer, en PDF.</p>
+    <a class="btn" href="#commande">Commander mon CV</a>
+  </header>
+
+  <section>
+    <h2>Tarifs</h2>
+    <div class="prices">
+      <div class="price"><h3>CV simple</h3><span class="amt">3 $</span><p>Une page claire : profil, formation, expérience, compétences.</p></div>
+      <div class="price"><h3>CV + lettre de motivation</h3><span class="amt">5 $</span><p>Le CV et une lettre écrite pour le poste que tu vises.</p></div>
+      <div class="price"><h3>Pack candidature</h3><span class="amt">8 $</span><p>CV, lettre de motivation et un modèle de message pour postuler par e-mail ou WhatsApp.</p></div>
+    </div>
+    <p class="note">Tu peux payer en dollars ou en francs congolais, au taux du jour.</p>
+  </section>
+
+  <section>
+    <h2>Exemple de mise en page</h2>
+    <div class="cv" aria-label="Exemple de CV, nom fictif">
+      <span class="tag">Exemple, nom fictif</span>
+      <b>Prénom NOM</b>
+      <span>Kinshasa · 08X XX XX XXX · prenom@email.com</span>
+      <hr>
+      <span class="tag">Profil</span>
+      <span>Étudiant en 3e année de gestion, organisé et sérieux, à la recherche d'un stage en administration.</span>
+      <span class="tag">Formation</span>
+      <span>Licence en gestion, Université, 2023 à aujourd'hui</span>
+      <span class="tag">Compétences</span>
+      <span>Word, Excel, français, anglais, travail en équipe</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Comment ça se passe</h2>
+    <ol class="steps">
+      <li><span>Tu choisis ton offre ci-dessous.</span></li>
+      <li><span>Tu paies le montant par Orange Money.</span></li>
+      <li><span>Tu m'envoies sur WhatsApp la confirmation et tes informations.</span></li>
+      <li><span>Je vérifie le paiement, puis je t'envoie ton CV en PDF dans les 24 heures.</span></li>
+    </ol>
+  </section>
+
+  <section id="commande" aria-labelledby="cmd">
+    <h2 id="cmd">Passer ma commande</h2>
+
+    <div class="card">
+      <label for="nom">Ton prénom
+        <input id="nom" type="text" autocomplete="given-name" placeholder="Ex. Grâce">
+      </label>
+      <label for="offre">Offre
+        <select id="offre">
+          <option value="3">CV simple, 3 $</option>
+          <option value="5">CV + lettre de motivation, 5 $</option>
+          <option value="8">Pack candidature, 8 $</option>
+        </select>
+      </label>
+      <label for="poste">Poste ou stage visé
+        <input id="poste" type="text" placeholder="Ex. Assistant administratif">
+      </label>
+    </div>
+
+    <div class="card">
+      <h3>Étape 2 : paie par Orange Money</h3>
+      <div class="pay">
+        <span class="note">Montant à envoyer</span>
+        <span class="tot" id="tot">3 $</span>
+        <span class="note">Numéro Orange Money</span>
+        <span class="num" id="om">+243 84 64 64 895</span>
+        <span class="note" id="compte" hidden></span>
+      </div>
+      <button class="ghost" id="copynum" type="button">Copier le numéro</button>
+      <label for="ref">Référence de la transaction (reçue par SMS)
+        <input id="ref" type="text" inputmode="text" autocomplete="off" placeholder="Ex. le code reçu après l'envoi">
+      </label>
+      <a class="btn" id="send" href="#commande">Envoyer ma confirmation sur WhatsApp</a>
+      <p class="note">Après l'envoi du message, ajoute dans WhatsApp la capture d'écran de ta confirmation, puis tes informations : nom complet, ville, formation, expériences, compétences, e-mail et photo si tu veux.</p>
+      <div class="row">
+        <button class="ghost" id="copy" type="button">Copier le message</button>
+      </div>
+      <p class="ok" id="ok" role="status"></p>
+    </div>
+
+    <p class="warn">Je ne livre le CV qu'après avoir reçu le paiement sur mon compte Orange Money. Une capture d'écran seule ne suffit pas.</p>
+  </section>
+
+  <section>
+    <h2>Questions fréquentes</h2>
+    <details><summary>Combien de temps pour recevoir mon CV ?</summary><p>Dans les 24 heures après la vérification du paiement et la réception de toutes tes informations.</p></details>
+    <details><summary>Je n'ai pas d'expérience. C'est un problème ?</summary><p>Non. On met en avant ta formation, tes compétences, tes stages ou ton bénévolat, même petits.</p></details>
+    <details><summary>Puis-je demander une modification ?</summary><p>Oui, une modification est incluse après la livraison.</p></details>
+    <details><summary>Dans quel format je reçois mon CV ?</summary><p>En PDF, prêt à envoyer par WhatsApp ou par e-mail. Tu peux aussi demander une version Word.</p></details>
+  </section>
+
+  <footer>CV Express · Commandes sur WhatsApp</footer>
+</main>
+
+<script>
+(function(){
+  /* À MODIFIER si besoin */
+  var WHATSAPP='243846464895';          // numéro WhatsApp, sans + ni espaces
+  var NUMERO_OM='+243 84 64 64 895';    // numéro Orange Money affiché
+  var NOM_COMPTE='';                     // nom du compte Orange Money, ex. 'Prénom NOM' (laisser vide pour ne pas l'afficher)
+
+  var $=function(id){return document.getElementById(id)};
+  var nom=$('nom'),offre=$('offre'),poste=$('poste'),ref=$('ref'),send=$('send'),ok=$('ok');
+  var labels={'3':'CV simple','5':'CV + lettre de motivation','8':'Pack candidature'};
+
+  $('om').textContent=NUMERO_OM;
+  if(NOM_COMPTE){$('compte').hidden=false;$('compte').textContent='Nom du compte : '+NOM_COMPTE}
+
+  function msg(){
+    var n=nom.value.trim(),p=poste.value.trim(),r=ref.value.trim(),m=offre.value;
+    return 'Bonjour, je veux commander un CV.'
+      +(n?'\nPrénom : '+n:'')
+      +'\nOffre : '+labels[m]+' ('+m+' $)'
+      +(p?'\nPoste visé : '+p:'')
+      +'\nJ\'ai payé '+m+' $ par Orange Money.'
+      +(r?'\nRéférence de la transaction : '+r:'')
+      +'\nJe t\'envoie la capture de confirmation et mes informations.';
+  }
+  function upd(){
+    $('tot').textContent=offre.value+' $';
+    send.href='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(msg());
+    send.target='_blank'; send.rel='noopener';
+    ok.textContent='';
+  }
+  [nom,offre,poste,ref].forEach(function(e){e.addEventListener('input',upd);e.addEventListener('change',upd)});
+
+  function copy(text,okText){
+    function done(){ok.textContent=okText}
+    function fail(){ok.textContent='Copie impossible ici. Sélectionne le texte et copie-le à la main.'}
+    try{navigator.clipboard.writeText(text).then(done,fail)}catch(e){fail()}
+  }
+  $('copy').addEventListener('click',function(){copy(msg(),'Message copié.')});
+  $('copynum').addEventListener('click',function(){copy(NUMERO_OM.replace(/\s/g,''),'Numéro copié.')});
+  upd();
+})();
+</script>
+</body>
+</html>
